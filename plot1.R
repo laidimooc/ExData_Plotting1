@@ -1,12 +1,13 @@
 library(dplyr)
 library(lubridate)
-if(file.exists("ok-data.csv")) {
-  ok_data <- read.csv("ok_data.csv")
-}
-else{
+
+if(!file.exists("ok_data.csv")){
   all_data <- read.csv("household_power_consumption.txt", sep = ";", na.strings = "?")
   ok_data <- filter(all_data,dmy(all_data$Date) >= ymd("2007-02-01") & dmy(all_data$Date)<=ymd("2007-02-02"))
   write.csv(ok_data,"ok_data.csv")
+} else {
+  ok_data <- read.csv("ok_data.csv")
+  
 }
 
 
